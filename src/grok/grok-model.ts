@@ -91,12 +91,20 @@ export function grokModelStream(
       })
 
       // 4. 发送请求
-      const res = await fetch(GROK_RESPONSES_URL, {
-        method: 'POST',
-        headers: buildHeaders(credential.accessToken),
-        body: JSON.stringify(body),
-        signal: request.signal as AbortSignal | undefined,
-      })
+      console.log('[dsh-grok] 发送请求到', GROK_RESPONSES_URL, 'model:', request.model)
+      let res: Response
+      try {
+        res = await fetch(GROK_RESPONSES_URL, {
+          method: 'POST',
+          headers: buildHeaders(credential.accessToken),
+          body: JSON.stringify(body),
+          signal: request.signal as AbortSignal | undefined,
+        })
+      } catch (err) {
+        console.error('[dsh-grok] fetch 失败:', err instanceof Error ? err.message : String(err))
+        throw err
+      }
+      console.log('[dsh-grok] 响应状态:', res.status)
 
       if (!res.ok) {
         const text = await res.text().catch(() => '')
