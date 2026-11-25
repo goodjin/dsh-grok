@@ -1,0 +1,31 @@
+# @goodjin2/dsh-grok 的挂载配置。
+#
+# Grok 模型行：DSH 自己的循环读文件、跑命令、审批，这一行只回答「向模型要下一句话」。
+# 请求由本仓直接发到 Grok 的 /responses 端点，用本地 Grok CLI 的 OAuth 凭据认证。
+#
+# 用法：把下面的 insert 段合并进你的 profile 的 cordis.patch.yml。
+
+- insert:
+    # Grok 模型行：把 `acp:grok-global` 这条 provider 路由挂进宿主模型目录，
+    # 模型流交给 grokModelStream。hideFromRoster：用户选的是模型而不是这个 preset。
+    - id: grok-global
+      name: '@goodjin2/dsh-grok'
+      config:
+        presetId: grok-global
+        agent: grok-global
+        hideFromRoster: true
+        models:
+          - id: grok-4.7
+            name: "Grok 4.7"
+            description: "最新旗舰 · 256k 上下文"
+            contextWindow: 256000
+          - id: grok-4.7-build-fast
+            name: "Grok 4.7 Fast"
+            description: "快速变体 · 2x 价格"
+            contextWindow: 256000
+          - id: grok-4.6
+            name: "Grok 4.6"
+            contextWindow: 256000
+          - id: grok-4.5
+            name: "Grok 4.5"
+            contextWindow: 256000

@@ -1,0 +1,79 @@
+{
+  "name": "@goodjin2/dsh-grok",
+  "version": "0.1.0",
+  "description": "DSH plugin: Grok model row \u2014 calls the Grok /responses endpoint directly and reuses the local Grok CLI OAuth credential.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/goodjin/dsh-grok.git"
+  },
+  "homepage": "https://github.com/goodjin/dsh-grok#readme",
+  "bugs": {
+    "url": "https://github.com/goodjin/dsh-grok/issues"
+  },
+  "type": "module",
+  "packageManager": "pnpm@11.7.0",
+  "engines": {
+    "node": "^22.19.0 || >=24.0.0",
+    "dsh": ">=0.2.1-rc.2 <0.3"
+  },
+  "main": "./lib/host/entry.js",
+  "types": "./src/entry.ts",
+  "exports": {
+    ".": {
+      "types": "./src/entry.ts",
+      "default": "./lib/host/entry.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "LICENSE",
+    "README.md",
+    "cordis.patch.yml",
+    "lib/host/**/*.js",
+    "src/**/*.ts"
+  ],
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "tsc -p tsconfig.build.json"
+  },
+  "keywords": [
+    "grok",
+    "xai",
+    "deepseek-harness",
+    "dsh",
+    "dsh-plugin",
+    "model",
+    "plugin"
+  ],
+  "author": "goodjin",
+  "license": "MIT",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-api-remotes",
+        "@deepseek-ai/dsh-client-ui-renderer",
+        "@deepseek-ai/dsh-client-ui-layout",
+        "@deepseek-ai/dsh-client-ui-sidebar",
+        "@deepseek-ai/dsh-client-ui-conversation",
+        "@deepseek-ai/dsh-client-ui-chat",
+        "@deepseek-ai/dsh-client-ui-model-selection",
+        "@deepseek-ai/dsh-client-ui-workspace",
+        "@deepseek-ai/dsh-client-ui-settings"
+      ],
+      "platform": "web"
+    }
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "@deepseek-ai/schemastery": ">=3.18.1 <4",
+    "react": "^18.2.0"
+  },
+  "devDependencies": {
+    "@deepseek-ai/schemastery": "^3.18.1",
+    "@types/node": "^24.0.0",
+    "typescript": "^5.9.2"
+  }
+}
